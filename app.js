@@ -5,7 +5,7 @@
 
 // ─── CONFIG ───────────────────────────────────────────────
 // Ganti URL ini dengan URL Google Apps Script yang sudah di-deploy
-const GAS_URL = "https://script.google.com/macros/s/AKfycbw5MNZesE7MBTw1CWeIWWRL5cQ9BhOswRQVGd0PP9submKKLdod4pv9cD0Mdhj55mWU/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyIsYNbByqKVtamAs3P-TWxaS42yjICnq3dWLI-z9thzcJ3EiNBLCquTiwtNJxjn32R/exec";
 
 // ─── TOPIC CONFIG ─────────────────────────────────────────
 const TOPICS = {
