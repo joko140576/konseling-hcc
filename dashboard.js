@@ -31,7 +31,7 @@ async function loadData() {
   btn.classList.add("spinning");
 
   try {
-    if (GAS_URL === "GANTI_DENGAN_URL_APPS_SCRIPT_ANDA") {
+    if (GAS_URL === "https://script.google.com/macros/s/AKfycbyIsYNbByqKVtamAs3P-TWxaS42yjICnq3dWLI-z9thzcJ3EiNBLCquTiwtNJxjn32R/exec") {
       // Demo data
       allData = generateDemoData();
     } else {
