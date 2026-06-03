@@ -20,7 +20,7 @@ const KESIMPULAN_COLORS = {
 };
 
 // 🔥 PASTIKAN INI SUDAH DIISI URL WEB APP GAS
-const GAS_URL = "ISI_URL_WEB_APP_KAMU_DISINI";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyIsYNbByqKVtamAs3P-TWxaS42yjICnq3dWLI-z9thzcJ3EiNBLCquTiwtNJxjn32R/exec";
 
 let allData = [];
 let filteredData = [];
