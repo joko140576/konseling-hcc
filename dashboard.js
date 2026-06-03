@@ -314,39 +314,39 @@ function exportCSV() {
   a.click(); URL.revokeObjectURL(url);
 }
 
-// ─── DEMO DATA ────────────────────────────────────────────
-function generateDemoData() {
-  const pemimpins = ["Budi Santoso","Dewi Rahayu","Agus Purnomo","Siti Aminah","Rendra Wijaya","Lestari Indah"];
-  const cous      = ["Hendra K.","Mega Putri","Fajar Nugroho","Ratih Sari"];
-  const konselors = ["Dr. Anita","Pak Suharto","Bu Citra"];
-  const kesSamples = ["Sangat Baik","Baik","Baik","Cukup","Perlu Perbaikan","Sangat Perlu Perbaikan"];
-  const haris = ["Senin","Selasa","Rabu","Kamis","Jumat"];
+// // ─── DEMO DATA ────────────────────────────────────────────
+// function generateDemoData() {
+//   const pemimpins = ["Budi Santoso","Dewi Rahayu","Agus Purnomo","Siti Aminah","Rendra Wijaya","Lestari Indah"];
+//   const cous      = ["Hendra K.","Mega Putri","Fajar Nugroho","Ratih Sari"];
+//   const konselors = ["Dr. Anita","Pak Suharto","Bu Citra"];
+//   const kesSamples = ["Sangat Baik","Baik","Baik","Cukup","Perlu Perbaikan","Sangat Perlu Perbaikan"];
+//   const haris = ["Senin","Selasa","Rabu","Kamis","Jumat"];
 
-  return Array.from({ length: 14 }, (_, i) => {
-    const topicKeys = ["fakta","inovasi","keluhan","kritikan","sop","lainlain"];
-    const usedTopics = topicKeys.filter(() => Math.random() > 0.5);
-    const hasilKonseling = {};
-    usedTopics.forEach(k => {
-      hasilKonseling[k] = {
-        narasi_cou: `Narasi dari COU mengenai ${TOPIC_META[k].label} pada sesi ini.`,
-        respon_konselor: `Respon konselor terkait ${TOPIC_META[k].label}.`,
-      };
-    });
-    const d = new Date(2025, 4 + Math.floor(i/5), (i % 20) + 1, 9 + (i % 5));
-    return {
-      timestamp: d.toLocaleString("id-ID"),
-      hari: haris[i % haris.length],
-      tanggalJam: d.toISOString().slice(0,16),
-      namaPemimpin: pemimpins[i % pemimpins.length],
-      namaCOU: cous[i % cous.length],
-      region: String((i % 10) + 1),
-      konselor: konselors[i % konselors.length],
-      arahanTindakLanjut: i % 3 === 0 ? "Pemimpin diminta untuk meningkatkan koordinasi dengan tim dan melaporkan perkembangan dalam 2 minggu." : "",
-      kesimpulan: kesSamples[i % kesSamples.length],
-      hasilKonseling,
-    };
-  });
-}
+//   return Array.from({ length: 14 }, (_, i) => {
+//     const topicKeys = ["fakta","inovasi","keluhan","kritikan","sop","lainlain"];
+//     const usedTopics = topicKeys.filter(() => Math.random() > 0.5);
+//     const hasilKonseling = {};
+//     usedTopics.forEach(k => {
+//       hasilKonseling[k] = {
+//         narasi_cou: `Narasi dari COU mengenai ${TOPIC_META[k].label} pada sesi ini.`,
+//         respon_konselor: `Respon konselor terkait ${TOPIC_META[k].label}.`,
+//       };
+//     });
+//     const d = new Date(2025, 4 + Math.floor(i/5), (i % 20) + 1, 9 + (i % 5));
+//     return {
+//       timestamp: d.toLocaleString("id-ID"),
+//       hari: haris[i % haris.length],
+//       tanggalJam: d.toISOString().slice(0,16),
+//       namaPemimpin: pemimpins[i % pemimpins.length],
+//       namaCOU: cous[i % cous.length],
+//       region: String((i % 10) + 1),
+//       konselor: konselors[i % konselors.length],
+//       arahanTindakLanjut: i % 3 === 0 ? "Pemimpin diminta untuk meningkatkan koordinasi dengan tim dan melaporkan perkembangan dalam 2 minggu." : "",
+//       kesimpulan: kesSamples[i % kesSamples.length],
+//       hasilKonseling,
+//     };
+//   });
+// }
 
 // ─── INIT ─────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
