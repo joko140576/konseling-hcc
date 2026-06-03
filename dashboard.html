@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Konseling HCC</title>
+  <title>HCC Dashboard - Program Konseling HCC</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="dashboard.css" />
 </head>
-<body class="db-body">
+<body>
 
   <!-- NAVBAR -->
   <nav class="db-nav">
@@ -25,166 +25,177 @@
   </nav>
 
   <!-- DASHBOARD HEADER -->
-  <header class="db-header">
-    <div class="db-header-inner">
+  <div class="dashboard-header">
+    <div class="dashboard-header-inner">
       <div>
-        <div class="section-tag">Monitoring & Evaluasi</div>
-        <h1 class="db-title">Dashboard Konseling <span>HCC</span></h1>
-        <p class="db-subtitle">Pantau seluruh rekaman sesi konseling secara real-time dari Google Spreadsheet.</p>
+        <div class="dashboard-badge">Analytics & Reporting</div>
+        <h1 class="dashboard-title">Dashboard Konseling HCC</h1>
+        <p class="dashboard-subtitle">Rekap data sesi konseling, insight, dan performa pemimpin secara real-time</p>
       </div>
-      <div class="db-header-actions">
-        <button class="btn-refresh" id="btn-refresh" onclick="loadData()">
-          <span id="refresh-icon">↻</span> Refresh Data
-        </button>
-        <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
-      </div>
+      <button class="dashboard-refresh" id="btn-refresh" onclick="loadData()">
+        <span class="refresh-icon">🔄</span> Refresh
+      </button>
     </div>
-  </header>
+  </div>
 
-  <!-- STAT CARDS -->
-  <section class="db-stats">
-    <div class="db-stats-inner">
-      <div class="db-stat-card">
-        <div class="db-stat-icon navy">📋</div>
-        <div>
-          <div class="db-stat-num" id="stat-total">—</div>
-          <div class="db-stat-label">Total Sesi</div>
-        </div>
-      </div>
-      <div class="db-stat-card">
-        <div class="db-stat-icon gold">🏆</div>
-        <div>
-          <div class="db-stat-num" id="stat-sangat-baik">—</div>
-          <div class="db-stat-label">Sangat Baik</div>
-        </div>
-      </div>
-      <div class="db-stat-card">
-        <div class="db-stat-icon green">✅</div>
-        <div>
-          <div class="db-stat-num" id="stat-baik">—</div>
-          <div class="db-stat-label">Baik</div>
-        </div>
-      </div>
-      <div class="db-stat-card">
-        <div class="db-stat-icon orange">⚠️</div>
-        <div>
-          <div class="db-stat-num" id="stat-perlu">—</div>
-          <div class="db-stat-label">Perlu Perbaikan</div>
-        </div>
-      </div>
-      <div class="db-stat-card">
-        <div class="db-stat-icon blue">🌐</div>
-        <div>
-          <div class="db-stat-num" id="stat-region">—</div>
-          <div class="db-stat-label">Region Aktif</div>
-        </div>
+  <!-- STATS CARDS -->
+  <div class="stats-grid">
+    <div class="stat-card-db">
+      <div class="stat-card-icon">📋</div>
+      <div class="stat-card-info">
+        <div class="stat-card-label">Total Sesi Konseling</div>
+        <div class="stat-card-value" id="stat-total">—</div>
       </div>
     </div>
-  </section>
+    <div class="stat-card-db">
+      <div class="stat-card-icon">⭐</div>
+      <div class="stat-card-info">
+        <div class="stat-card-label">Sangat Baik</div>
+        <div class="stat-card-value" id="stat-sangat-baik">—</div>
+      </div>
+    </div>
+    <div class="stat-card-db">
+      <div class="stat-card-icon">👍</div>
+      <div class="stat-card-info">
+        <div class="stat-card-label">Baik</div>
+        <div class="stat-card-value" id="stat-baik">—</div>
+      </div>
+    </div>
+    <div class="stat-card-db">
+      <div class="stat-card-icon">⚠️</div>
+      <div class="stat-card-info">
+        <div class="stat-card-label">Perlu Perbaikan</div>
+        <div class="stat-card-value" id="stat-perlu">—</div>
+      </div>
+    </div>
+    <div class="stat-card-db">
+      <div class="stat-card-icon">🌏</div>
+      <div class="stat-card-info">
+        <div class="stat-card-label">Region Aktif</div>
+        <div class="stat-card-value" id="stat-region">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <div class="filter-group">
+      <label>🔍 Cari</label>
+      <input type="text" id="filter-search" placeholder="Nama Pemimpin / COU / Konselor..." onkeyup="applyFilters()" />
+    </div>
+    <div class="filter-group">
+      <label>📍 Region</label>
+      <select id="filter-region" onchange="applyFilters()">
+        <option value="">Semua Region</option>
+        <option value="Region 1">Region 1</option>
+        <option value="Region 2">Region 2</option>
+        <option value="Region 3">Region 3</option>
+        <option value="Region 4">Region 4</option>
+        <option value="Region 5">Region 5</option>
+        <option value="Region 6">Region 6</option>
+        <option value="Region 7">Region 7</option>
+        <option value="Region 8">Region 8</option>
+        <option value="Region 9">Region 9</option>
+        <option value="Region 10">Region 10</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>📊 Kesimpulan</label>
+      <select id="filter-kesimpulan" onchange="applyFilters()">
+        <option value="">Semua Kesimpulan</option>
+        <option value="Sangat Baik">⭐ Sangat Baik</option>
+        <option value="Baik">⭐⭐ Baik</option>
+        <option value="Cukup">⭐⭐⭐ Cukup</option>
+        <option value="Perlu Perbaikan">⭐⭐ Perlu Perbaikan</option>
+        <option value="Sangat Perlu Perbaikan">⭐ Sangat Perlu Perbaikan</option>
+      </select>
+    </div>
+    <button class="btn-export" onclick="exportCSV()">📥 Export CSV</button>
+  </div>
 
   <!-- CHARTS ROW -->
-  <section class="db-charts">
-    <div class="db-charts-inner">
-      <!-- Kesimpulan chart -->
-      <div class="db-chart-card" id="chart-kesimpulan-wrap">
-        <div class="db-chart-title">Distribusi Kesimpulan</div>
-        <div class="db-chart-subtitle">Sebaran penilaian seluruh sesi</div>
-        <div class="bar-chart" id="chart-kesimpulan"></div>
-      </div>
-      <!-- Region chart -->
-      <div class="db-chart-card" id="chart-region-wrap">
-        <div class="db-chart-title">Sesi per Region</div>
-        <div class="db-chart-subtitle">Jumlah sesi tiap region</div>
-        <div class="bar-chart" id="chart-region"></div>
-      </div>
+  <div class="charts-row">
+    <div class="chart-card">
+      <h3 class="chart-title">Distribusi Kesimpulan</h3>
+      <div id="chart-kesimpulan" class="bar-chart"></div>
     </div>
-  </section>
+    <div class="chart-card">
+      <h3 class="chart-title">Sesi per Region</h3>
+      <div id="chart-region" class="bar-chart"></div>
+    </div>
+  </div>
 
-  <!-- FILTERS + TABLE -->
-  <section class="db-table-section">
-    <div class="db-table-inner">
+  <!-- TABLE SECTION -->
+  <div class="table-section">
+    <div class="table-header">
+      <h3 class="table-title">📋 Data Sesi Konseling</h3>
+      <div class="table-info" id="filter-count"></div>
+    </div>
 
-      <div class="db-filter-bar">
-        <input type="text" id="filter-search" placeholder="🔍  Cari nama, COU, konselor..." oninput="applyFilters()" />
-        <select id="filter-region" onchange="applyFilters()">
-          <option value="">Semua Region</option>
-          <option>Region 1</option><option>Region 2</option><option>Region 3</option>
-          <option>Region 4</option><option>Region 5</option><option>Region 6</option>
-          <option>Region 7</option><option>Region 8</option><option>Region 9</option>
-          <option>Region 10</option>
-        </select>
-        <select id="filter-kesimpulan" onchange="applyFilters()">
-          <option value="">Semua Kesimpulan</option>
-          <option>Sangat Baik</option>
-          <option>Baik</option>
-          <option>Cukup</option>
-          <option>Perlu Perbaikan</option>
-          <option>Sangat Perlu Perbaikan</option>
-        </select>
-        <span class="filter-count" id="filter-count"></span>
-      </div>
+    <!-- Loading State -->
+    <div id="db-loading" class="db-state">
+      <div class="spinner"></div>
+      <p>Memuat data dari spreadsheet...</p>
+    </div>
 
-      <!-- Loading state -->
-      <div class="db-loading" id="db-loading">
-        <div class="spinner"></div>
-        <p>Memuat data dari spreadsheet...</p>
-      </div>
+    <!-- Empty State -->
+    <div id="db-empty" class="db-state" style="display:none">
+      <div class="empty-icon">📭</div>
+      <p>Belum ada data sesi konseling</p>
+      <p style="font-size:13px; margin-top:8px">Silakan input sesi konseling terlebih dahulu</p>
+    </div>
 
-      <!-- Empty state -->
-      <div class="db-empty" id="db-empty" style="display:none">
-        <div class="db-empty-icon">📂</div>
-        <p>Belum ada data konseling.<br/>Mulai input sesi pertama Anda.</p>
-        <a href="index.html" class="btn-next" style="text-decoration:none;display:inline-block;margin-top:16px">+ Input Sesi Konseling</a>
-      </div>
+    <!-- Error State -->
+    <div id="db-error" class="db-state" style="display:none">
+      <div class="error-icon">⚠️</div>
+      <p>Gagal memuat data</p>
+      <p id="db-error-msg" style="font-size:13px; margin-top:8px; color:#c0392b"></p>
+      <button class="btn-retry" onclick="loadData()">Coba Lagi</button>
+    </div>
 
-      <!-- Error state -->
-      <div class="db-empty" id="db-error" style="display:none">
-        <div class="db-empty-icon">⚠️</div>
-        <p id="db-error-msg">Gagal memuat data. Pastikan GAS_URL sudah dikonfigurasi.</p>
-        <button class="btn-next" onclick="loadData()" style="margin-top:16px">Coba Lagi</button>
-      </div>
-
-      <!-- TABLE -->
-      <div id="db-table-wrap" style="display:none">
-        <table class="db-table" id="db-table">
+    <!-- Table Wrap -->
+    <div id="db-table-wrap" style="display:none">
+      <div class="table-responsive">
+        <table class="data-table">
           <thead>
             <tr>
-              <th>#</th>
-              <th onclick="sortBy('tanggalJam')" class="sortable">Tanggal & Jam <span class="sort-icon">↕</span></th>
-              <th onclick="sortBy('hari')" class="sortable">Hari</th>
-              <th onclick="sortBy('namaPemimpin')" class="sortable">Nama Pemimpin <span class="sort-icon">↕</span></th>
-              <th onclick="sortBy('namaCOU')" class="sortable">COU <span class="sort-icon">↕</span></th>
-              <th onclick="sortBy('region')" class="sortable">Region <span class="sort-icon">↕</span></th>
-              <th>Konselor HCC</th>
-              <th onclick="sortBy('kesimpulan')" class="sortable">Kesimpulan <span class="sort-icon">↕</span></th>
+              <th>No</th>
+              <th onclick="sortBy('tanggalJam')">Tanggal & Jam ⬍</th>
+              <th onclick="sortBy('hari')">Hari ⬍</th>
+              <th onclick="sortBy('namaPemimpin')">Nama Pemimpin ⬍</th>
+              <th onclick="sortBy('namaCOU')">Nama COU ⬍</th>
+              <th onclick="sortBy('region')">Region ⬍</th>
+              <th onclick="sortBy('konselor')">Konselor HCC ⬍</th>
+              <th onclick="sortBy('kesimpulan')">Kesimpulan ⬍</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody id="db-tbody"></tbody>
         </table>
       </div>
-
     </div>
-  </section>
+  </div>
 
-  <!-- DETAIL MODAL -->
-  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
-  <div class="modal" id="modal">
+  <!-- MODAL DETAIL -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModal()"></div>
+  <div id="modal" class="modal">
     <div class="modal-header">
-      <div>
-        <div class="section-tag">Detail Sesi Konseling</div>
-        <h2 id="modal-title" class="modal-title">—</h2>
-      </div>
+      <h3 id="modal-title">Detail Sesi Konseling</h3>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body" id="modal-body"></div>
   </div>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 Program Konseling HCC — Human Capital Counseling System</p>
   </footer>
 
-  <script src="app.js"></script>
+  <!-- SCRIPT -->
+  <script>
+    // ========== DEFINE GAS_URL ==========
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyIsYNbByqKVtamAs3P-TWxaS42yjICnq3dWLI-z9thzcJ3EiNBLCquTiwtNJxjn32R/exec";
+  </script>
   <script src="dashboard.js"></script>
 </body>
 </html>
