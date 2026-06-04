@@ -293,7 +293,7 @@ function showToast(msg, type = "info") {
 
 // ─── LOAD TOTAL SESSIONS (optional) ───────────────────────
 async function updateTotalSessions() {
-  if (GAS_URL === "GANTI_DENGAN_URL_APPS_SCRIPT_ANDA") return;
+  if (GAS_URL === "https://script.google.com/macros/s/AKfycbytgxZg4A9sJQ64rowJsZvgXwWHOdZSlYk1trlXUMu5VuN8DR4SPhl_5eh_iIcsMJpi/exec") return;
   try {
     const r = await fetch(GAS_URL + "?action=count");
     const d = await r.json();
