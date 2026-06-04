@@ -4,7 +4,7 @@
 
 // ─── CONFIG ───────────────────────────────────────────────
 // Ganti URL ini dengan URL Google Apps Script yang sudah di-deploy
-const GAS_URL = "GANTI_DENGAN_URL_APPS_SCRIPT_ANDA";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbytgxZg4A9sJQ64rowJsZvgXwWHOdZSlYk1trlXUMu5VuN8DR4SPhl_5eh_iIcsMJpi/exec";
 
 // ─── TOPIC CONFIG ─────────────────────────────────────────
 const TOPICS = {
@@ -197,7 +197,7 @@ async function submitForm() {
   submitBtn.disabled = true;
 
   // Demo mode
-  if (GAS_URL === "GANTI_DENGAN_URL_APPS_SCRIPT_ANDA") {
+  if (GAS_URL === https://script.google.com/macros/s/AKfycbytgxZg4A9sJQ64rowJsZvgXwWHOdZSlYk1trlXUMu5VuN8DR4SPhl_5eh_iIcsMJpi/exec") {
     setTimeout(() => {
       showSuccessScreen(data);
       showToast("Mode Demo - Backend belum dikonfigurasi.", "info");
