@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Konseling HCC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="db-body">
+
+  <!-- NAVBAR -->
+  <nav class="db-nav">
+    <div class="db-nav-inner">
+      <div class="db-nav-brand">
+        <span class="db-nav-dot"></span>
+        <span>HCC Konseling</span>
+      </div>
+      <div class="db-nav-links">
+        <a href="index.html" class="db-nav-link">📝 Input Sesi</a>
+        <a href="dashboard.html" class="db-nav-link active">📊 Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- DASHBOARD HEADER -->
+  <header class="db-header">
+    <div class="db-header-inner">
+      <div>
+        <div class="section-tag">Monitoring & Evaluasi</div>
+        <h1 class="db-title">Dashboard Konseling <span>HCC</span></h1>
+        <p class="db-subtitle">Pantau seluruh rekaman sesi konseling secara real-time dari Google Spreadsheet.</p>
+      </div>
+      <div class="db-header-actions">
+        <button class="btn-refresh" id="btn-refresh" onclick="loadData()">
+          <span id="refresh-icon">↻</span> Refresh Data
+        </button>
+        <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STAT CARDS -->
+  <section class="db-stats">
+    <div class="db-stats-inner">
+      <div class="db-stat-card">
+        <div class="db-stat-icon navy">📋</div>
+        <div>
+          <div class="db-stat-num" id="stat-total">—</div>
+          <div class="db-stat-label">Total Sesi</div>
+        </div>
+      </div>
+      <div class="db-stat-card">
+        <div class="db-stat-icon gold">🏆</div>
+        <div>
+          <div class="db-stat-num" id="stat-sangat-baik">—</div>
+          <div class="db-stat-label">Sangat Baik</div>
+        </div>
+      </div>
+      <div class="db-stat-card">
+        <div class="db-stat-icon green">✅</div>
+        <div>
+          <div class="db-stat-num" id="stat-baik">—</div>
+          <div class="db-stat-label">Baik</div>
+        </div>
+      </div>
+      <div class="db-stat-card">
+        <div class="db-stat-icon orange">⚠️</div>
+        <div>
+          <div class="db-stat-num" id="stat-perlu">—</div>
+          <div class="db-stat-label">Perlu Perbaikan</div>
+        </div>
+      </div>
+      <div class="db-stat-card">
+        <div class="db-stat-icon blue">🌐</div>
+        <div>
+          <div class="db-stat-num" id="stat-region">—</div>
+          <div class="db-stat-label">Region Aktif</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARTS ROW -->
+  <section class="db-charts">
+    <div class="db-charts-inner">
+      <!-- Kesimpulan chart -->
+      <div class="db-chart-card" id="chart-kesimpulan-wrap">
+        <div class="db-chart-title">Distribusi Kesimpulan</div>
+        <div class="db-chart-subtitle">Sebaran penilaian seluruh sesi</div>
+        <div class="bar-chart" id="chart-kesimpulan"></div>
+      </div>
+      <!-- Region chart -->
+      <div class="db-chart-card" id="chart-region-wrap">
+        <div class="db-chart-title">Sesi per Region</div>
+        <div class="db-chart-subtitle">Jumlah sesi tiap region</div>
+        <div class="bar-chart" id="chart-region"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTERS + TABLE -->
+  <section class="db-table-section">
+    <div class="db-table-inner">
+
+      <div class="db-filter-bar">
+        <input type="text" id="filter-search" placeholder="🔍  Cari nama, COU, konselor..." oninput="applyFilters()" />
+        <select id="filter-region" onchange="applyFilters()">
+          <option value="">Semua Region</option>
+          <option>Region 1</option><option>Region 2</option><option>Region 3</option>
+          <option>Region 4</option><option>Region 5</option><option>Region 6</option>
+          <option>Region 7</option><option>Region 8</option><option>Region 9</option>
+          <option>Region 10</option>
+        </select>
+        <select id="filter-kesimpulan" onchange="applyFilters()">
+          <option value="">Semua Kesimpulan</option>
+          <option>Sangat Baik</option>
+          <option>Baik</option>
+          <option>Cukup</option>
+          <option>Perlu Perbaikan</option>
+          <option>Sangat Perlu Perbaikan</option>
+        </select>
+        <span class="filter-count" id="filter-count"></span>
+      </div>
+
+      <!-- Loading state -->
+      <div class="db-loading" id="db-loading">
+        <div class="spinner"></div>
+        <p>Memuat data dari spreadsheet...</p>
+      </div>
+
+      <!-- Empty state -->
+      <div class="db-empty" id="db-empty" style="display:none">
+        <div class="db-empty-icon">📂</div>
+        <p>Belum ada data konseling.<br/>Mulai input sesi pertama Anda.</p>
+        <a href="index.html" class="btn-next" style="text-decoration:none;display:inline-block;margin-top:16px">+ Input Sesi Konseling</a>
+      </div>
+
+      <!-- Error state -->
+      <div class="db-empty" id="db-error" style="display:none">
+        <div class="db-empty-icon">⚠️</div>
+        <p id="db-error-msg">Gagal memuat data. Pastikan GAS_URL sudah dikonfigurasi.</p>
+        <button class="btn-next" onclick="loadData()" style="margin-top:16px">Coba Lagi</button>
+      </div>
+
+      <!-- TABLE -->
+      <div id="db-table-wrap" style="display:none">
+        <table class="db-table" id="db-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th onclick="sortBy('tanggalJam')" class="sortable">Tanggal & Jam <span class="sort-icon">↕</span></th>
+              <th onclick="sortBy('hari')" class="sortable">Hari</th>
+              <th onclick="sortBy('namaPemimpin')" class="sortable">Nama Pemimpin <span class="sort-icon">↕</span></th>
+              <th onclick="sortBy('namaCOU')" class="sortable">COU <span class="sort-icon">↕</span></th>
+              <th onclick="sortBy('region')" class="sortable">Region <span class="sort-icon">↕</span></th>
+              <th>Konselor HCC</th>
+              <th onclick="sortBy('kesimpulan')" class="sortable">Kesimpulan <span class="sort-icon">↕</span></th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="db-tbody"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DETAIL MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="section-tag">Detail Sesi Konseling</div>
+        <h2 id="modal-title" class="modal-title">—</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+
+  <footer>
+    <p>© 2025 Program Konseling HCC — Human Capital Counseling System</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
