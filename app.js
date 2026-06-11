@@ -317,7 +317,7 @@ async function submitForm() {
   submitBtn.disabled = true;
 
   // Demo mode
-  if (GAS_URL === "https://script.google.com/macros/s/AKfycby25dOGooswUuwXeau-fsA_CvbBoKVdjajKVB9tDKq9PdDnIWhaOtJADJmWvOSAhSuu/exec") {
+  if (GAS_URL === "https://script.google.com/macros/s/AKfycbx1ELli55mZZ8I8To_oTBzubYEKzF9baAY-7vvSnJPS3twpPS_Cdc3WvTL9ajiPaNU1/exec") {
     setTimeout(() => {
       showSuccessScreen(data, []);
       showToast("Mode Demo - Backend belum dikonfigurasi.", "info");
