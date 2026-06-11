@@ -264,7 +264,7 @@ async function submitForm() {
   submitBtn.disabled = true;
 
   // Demo mode
-  if (GAS_URL === "GANTI_DENGAN_URL_APPS_SCRIPT_ANDA") {
+  if (GAS_URL === "https://script.google.com/macros/s/AKfycbz5DlFI6lmLTl8wCUGb_O0Jy2sfYzxWnWHqtYQPJ6DR90iLbYGaO-JZjA3dUz2iXoxA/exec") {
     setTimeout(() => {
       showSuccessScreen(data, []);
       showToast("Mode Demo — Backend belum dikonfigurasi.", "info");
@@ -388,7 +388,7 @@ function showToast(msg, type = "info") {
 
 // ─── TOTAL SESSIONS ──────────────────────────────────────────
 async function updateTotalSessions() {
-  if (GAS_URL === "GANTI_DENGAN_URL_APPS_SCRIPT_ANDA") return;
+  if (GAS_URL === "https://script.google.com/macros/s/AKfycbz5DlFI6lmLTl8wCUGb_O0Jy2sfYzxWnWHqtYQPJ6DR90iLbYGaO-JZjA3dUz2iXoxA/exec") return;
   try {
     const r = await fetch(GAS_URL + "?action=count");
     const d = await r.json();
