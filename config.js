@@ -4,5 +4,5 @@
    Script Anda setelah di-deploy.
    ============================================= */
 
-var GAS_URL = "https://script.google.com/macros/s/AKfycbz5DlFI6lmLTl8wCUGb_O0Jy2sfYzxWnWHqtYQPJ6DR90iLbYGaO-JZjA3dUz2iXoxA/exec";
+var GAS_URL = "https://script.google.com/macros/s/AKfycbzRTuUUqo4QZuTtg8hpUzxW4IhvWWVES164u1T9txlIxGRTd-n_Cxs1yWftMA6fjC96/exec";
 // Contoh: "https://script.google.com/macros/s/AKfycb.../exec"
